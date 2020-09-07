@@ -4,13 +4,12 @@
 
 React Native wrapper for the [Android Activity Recognition API][1] and [CMMotionActivity][3]. It attempts to determine the user activity such as
 driving, walking, running and cycling. Possible detected activities for android are [listed here][2] and for iOS are [listed here][3].<br/>
-Updated January 7th and tested with react-native v0.57.5
+Updated January 7th and tested with react-native v0.62.3
 
 [1]: https://developers.google.com/android/reference/com/google/android/gms/location/ActivityRecognition
 [2]: https://developers.google.com/android/reference/com/google/android/gms/location/DetectedActivity
 [3]: https://developer.apple.com/reference/coremotion/cmmotionactivity
 [4]: https://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking
-
 [npm shield]: https://img.shields.io/npm/v/react-native-activity-recognition.svg
 [npm url]: https://www.npmjs.com/package/react-native-activity-recognition
 
@@ -41,6 +40,7 @@ Make alterations to the following files in your project:
 #### Android
 
 1. Add following lines to `android/settings.gradle`
+
 ```gradle
 ...
 include ':react-native-activity-recognition'
@@ -49,6 +49,7 @@ project(':react-native-activity-recognition').projectDir = new File(rootProject.
 ```
 
 2. Add the compile line to dependencies in `android/app/build.gradle`
+
 ```gradle
 ...
 dependencies {
@@ -59,6 +60,7 @@ dependencies {
 ```
 
 3. Add import and link the package in `android/app/src/.../MainApplication.java`
+
 ```java
 import com.xebia.activityrecognition.RNActivityRecognitionPackage;  // <--- add import
 
@@ -75,6 +77,7 @@ public class MainApplication extends Application implements ReactApplication {
 ```
 
 4. Add activityrecognition service in `android/app/src/main/AndroidManifest.xml`
+
 ```xml
 ...
 <application ...>
@@ -84,7 +87,9 @@ public class MainApplication extends Application implements ReactApplication {
 </application>
 ...
 ```
+
 Also add the `ACTIVITY_RECOGNITION` permission on the manifest to support Android API Level above 28
+
 ```xml
 <manifest ...>
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
@@ -99,8 +104,8 @@ Also add the `ACTIVITY_RECOGNITION` permission on the manifest to support Androi
 3. Add `RNActivityRecognition.a` to `Build Phases -> Link Binary With Libraries`
 4. Add `NSMotionUsageDescription` key to your `Info.plist` with strings describing why your app needs this permission
 
+## Usage
 
-## Usage 
 ### Class based implementation
 
 ```js
@@ -127,6 +132,7 @@ this.unsubscribe()
 ```
 
 ### Hooks based implementation
+
 ```js
 import ActivityRecognition from 'react-native-activity-recognition'
 ...
@@ -137,7 +143,9 @@ import ActivityRecognition from 'react-native-activity-recognition'
       console.log(mostProbableActivity);
     });
 // Stop activity detection and remove the listener on unmount
-    return ActivityRecognition.stop();
+    return () => {
+        ActivityRecognition.stop();
+    }
   });
 ...
 // Start activity detection
@@ -163,11 +171,11 @@ confidence value:
 
 ```js
 [
-  { type: 'STILL', confidence: 77 },
-  { type: 'IN_VEHICLE', confidence: 15 },
-  { type: 'ON_FOOT', confidence: 8 },
-  { type: 'WALKING', confidence: 8 },
-]
+  { type: "STILL", confidence: 77 },
+  { type: "IN_VEHICLE", confidence: 15 },
+  { type: "ON_FOOT", confidence: 8 },
+  { type: "WALKING", confidence: 8 },
+];
 ```
 
 Because the activities are sorted by confidence level, the first value will be the one with the highest probability
@@ -188,17 +196,17 @@ The following activity types are supported:
 ### iOS
 
 `detectedActivities` is an object with key to the detected activity with a confidence value for that activity given by CMMotionActivityManager. For example:
+
 ```js
 {
-    WALKING: 2
+  WALKING: 2;
 }
 ```
 
 `detectedActivities.sorted` getter will return it in the form of an array.
+
 ```js
-[
-    {type: "WALKING", confidence: 2}
-]
+[{ type: "WALKING", confidence: 2 }];
 ```
 
 The following activity types are supported:
