@@ -90,6 +90,7 @@ Also add the `ACTIVITY_RECOGNITION` permission on the manifest to support Androi
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
     ...
 </manifest>
+```
 
 #### iOS
 
