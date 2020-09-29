@@ -38,15 +38,15 @@ public class DetectionService extends IntentService {
     public static String getActivityString(int detectedActivityType) {
         switch(detectedActivityType) {
             case DetectedActivity.IN_VEHICLE:
-                return "IN_VEHICLE";
+                return "AUTOMOTIVE";
             case DetectedActivity.ON_BICYCLE:
-                return "ON_BICYCLE";
+                return "CYCLING";
             case DetectedActivity.ON_FOOT:
                 return "ON_FOOT";
             case DetectedActivity.RUNNING:
                 return "RUNNING";
             case DetectedActivity.STILL:
-                return "STILL";
+                return "STATIONARY";
             case DetectedActivity.TILTING:
                 return "TILTING";
             case DetectedActivity.UNKNOWN:
@@ -54,7 +54,7 @@ public class DetectionService extends IntentService {
             case DetectedActivity.WALKING:
                 return "WALKING";
             default:
-                return "UNIDENTIFIABLE";
+                return "UNKNOWN";
         }
     }
 }
