@@ -16,13 +16,13 @@ Updated January 7th and tested with react-native v0.62.3
 ## Installation
 
 ```bash
-npm i -S react-native-activity-recognition
+npm i -S https://github.com/IronTony/react-native-activity-recognition
 ```
 
 or with Yarn:
 
 ```bash
-yarn add react-native-activity-recognition
+yarn add https://github.com/IronTony/react-native-activity-recognition
 ```
 
 ## Linking
