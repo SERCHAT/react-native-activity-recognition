@@ -42,7 +42,7 @@ public class DetectionService extends IntentService {
             case DetectedActivity.ON_BICYCLE:
                 return "CYCLING";
             case DetectedActivity.ON_FOOT:
-                return "ON_FOOT";
+                return "WALKING";
             case DetectedActivity.RUNNING:
                 return "RUNNING";
             case DetectedActivity.STILL:
