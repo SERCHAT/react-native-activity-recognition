@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
-    api 'com.facebook.react:react-native:+'
-    api 'com.google.android.gms:play-services-location:+'
+    implementation 'com.facebook.react:react-native:+'
+    implementation 'com.google.android.gms:play-services-location:+'
+    implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
 }
