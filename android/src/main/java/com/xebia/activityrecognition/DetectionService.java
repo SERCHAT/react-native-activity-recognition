@@ -23,16 +23,20 @@ public class DetectionService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         ActivityRecognitionResult result = ActivityRecognitionResult.extractResult(intent);
-        ArrayList<DetectedActivity> detectedActivities = (ArrayList) result.getProbableActivities();
+        
+        if(result != null){
+            ArrayList<DetectedActivity> detectedActivities = (ArrayList) result.getProbableActivities();
 
-        Log.d(TAG, "Detected activities:");
-        for (DetectedActivity da: detectedActivities) {
-            Log.d(TAG, getActivityString(da.getType()) + " (" + da.getConfidence() + "%)");
+            Log.d(TAG, "Detected activities:");
+            for (DetectedActivity da: detectedActivities) {
+                Log.d(TAG, getActivityString(da.getType()) + " (" + da.getConfidence() + "%)");
+            }
+
+            Intent localIntent = new Intent(BROADCAST_ACTION);
+            localIntent.putExtra(ACTIVITY_EXTRA, detectedActivities);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
         }
-
-        Intent localIntent = new Intent(BROADCAST_ACTION);
-        localIntent.putExtra(ACTIVITY_EXTRA, detectedActivities);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
+        
     }
 
     public static String getActivityString(int detectedActivityType) {
