@@ -25,8 +25,8 @@ public class DetectionService extends IntentService {
         ActivityRecognitionResult result = ActivityRecognitionResult.extractResult(intent);
         
         if(result != null){
-            ArrayList<DetectedActivity> detectedActivities = (ArrayList) result.getProbableActivities();
 
+            ArrayList<DetectedActivity> detectedActivities = (ArrayList) result.getProbableActivities();
             Log.d(TAG, "Detected activities:");
             for (DetectedActivity da: detectedActivities) {
                 Log.d(TAG, getActivityString(da.getType()) + " (" + da.getConfidence() + "%)");

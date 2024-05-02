@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.Nullable;
@@ -31,6 +32,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.DetectedActivity;
+
 
 public class ActivityRecognizer implements ConnectionCallbacks, OnConnectionFailedListener, ResultCallback<Status> {
     protected static final String TAG = ActivityRecognizer.class.getSimpleName();
@@ -172,7 +174,10 @@ public class ActivityRecognizer implements ConnectionCallbacks, OnConnectionFail
     // Create a PendingIntent to be sent for each activity detection
     private PendingIntent getActivityDetectionPendingIntent() {
         Intent intent = new Intent(mReactContext, DetectionService.class);
-        return PendingIntent.getService(mReactContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+          return PendingIntent.getService(mReactContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_MUTABLE);
+        }
+        return PendingIntent.getService(mReactContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     // Create key-value map with activity recognition result
